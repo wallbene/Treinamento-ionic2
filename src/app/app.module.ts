@@ -7,7 +7,15 @@ import { CadastroPage } from '../pages/cadastro/cadastro';
 import { HttpModule } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { AgendamentoService } from '../domain/agendamento/agendamento-service';
+import { Storage } from '@ionic/storage';
 
+function provideStorage() {
+  return new Storage(['indexeddb'], {
+    name: 'aluracar',
+    storeName: 'agendamentos'
+  });
+}
 
 @NgModule({
   declarations: [
@@ -27,6 +35,10 @@ import 'rxjs/add/operator/toPromise';
     EscolhaPage,
     CadastroPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AgendamentoService,
+    { provide: Storage, useFactory: provideStorage }
+  ]
 })
 export class AppModule {}
