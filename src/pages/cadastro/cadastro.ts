@@ -43,12 +43,14 @@ export class CadastroPage {
 
     this._service
     .agenda(this.agendamento)
-    .then(res => {
-      this._alert.setSubTitle("Agendamento realizado com sucesso");
+    .then(confirmado => {
+      confirmado?
+        this._alert.setSubTitle("Agendamento realizado com sucesso"):
+        this._alert.setSubTitle("Falha ao realizar o agendamento, tente novamente mais tarde.");
       this._alert.present();
     })
-    .catch(err => {
-      this._alert.setSubTitle("Falha ao realizar o agendamento, tente novamente mais tarde.");
+    .catch((err: Error) => {
+      this._alert.setSubTitle(err.message);
       this._alert.present();
     })
   }
