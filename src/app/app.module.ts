@@ -1,3 +1,4 @@
+import {AgendamentosPage} from '../pages/agendamentos/agendamentos';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -9,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AgendamentoService } from '../domain/agendamento/agendamento-service';
 import { Storage } from '@ionic/storage';
+import { AgendamentoDao } from "../domain/agendamento/agendamento-dao";
 
 function provideStorage() {
   return new Storage(['indexeddb'], {
@@ -22,7 +24,8 @@ function provideStorage() {
     MyApp,
     HomePage,
     EscolhaPage,
-    CadastroPage
+    CadastroPage,
+    AgendamentosPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -33,12 +36,14 @@ function provideStorage() {
     MyApp,
     HomePage,
     EscolhaPage,
-    CadastroPage
+    CadastroPage,
+    AgendamentosPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AgendamentoService,
-    { provide: Storage, useFactory: provideStorage }
+    { provide: Storage, useFactory: provideStorage },
+    AgendamentoDao
   ]
 })
 export class AppModule {}
