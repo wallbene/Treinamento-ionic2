@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Olá, faça o seu login!</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form (ngSubmit)="efetuaLogin()">
+    <ion-item>
+      <ion-label stacked>Usuário</ion-label>
+      <ion-input type="text" name="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Senha</ion-label>
+      <ion-input type="password" name="senha" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+
+    <button ion-button type="submit" block>Entrar</button>
+  </form>
+
+</ion-content>
