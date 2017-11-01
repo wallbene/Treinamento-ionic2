@@ -8,5 +8,15 @@
 
 
 <ion-content padding>
+  <ion-list>
+    <ion-item-sliding *ngFor="let agendamento of agendamentos">
+      <ion-item [class.falha]="!agendamento.confirmado">
+        {{ agendamento.carro.nome }} - {{ agendamento.valor }}
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button (click)="reenviar(agendamento)" *ngIf="!agendamento.confirmado">Reenviar</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>
