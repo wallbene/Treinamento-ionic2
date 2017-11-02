@@ -27,9 +27,9 @@
         <ion-input [(ngModel)]="agendamento.email" formControlName="email" name="email"></ion-input>
         <ion-label *ngIf="email.invalid && (email.dirty || email.touched)" color="danger" stacked>Email obrigatório</ion-label>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="selecionaData()">
         <ion-label [hidden]="(data.dirty || data.touched) && data.invalid" stacked>Data</ion-label>
-        <ion-datetime [(ngModel)]="agendamento.data" formControlName="data" name="data" displayFormat="DD/MM/YY"></ion-datetime>
+        <ion-datetime disabled="true" [(ngModel)]="agendamento.data" formControlName="data" name="data" displayFormat="DD/MM/YY"></ion-datetime>
         <ion-label *ngIf="data.invalid && (data.dirty || data.touched)" color="danger" stacked>Data obrigatório</ion-label>
     </ion-item>
     <button ion-button type="submit" block [disabled]="agendamentoForm.invalid">Finalizar agendamento</button>

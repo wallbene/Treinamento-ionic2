@@ -14,9 +14,10 @@ import { AgendamentoService } from '../domain/agendamento/agendamento-service';
 import { UsuarioService } from '../domain/usuario/usuario-service';
 import { Storage } from '@ionic/storage';
 import { AgendamentoDao } from "../domain/agendamento/agendamento-dao";
+import { Vibration, Camera } from 'ionic-native';
 
 function provideStorage() {
-  return new Storage(['indexeddb'], {
+  return new Storage(['indexeddb', 'sqlite'], {
     name: 'aluracar',
     storeName: 'agendamentos'
   });
@@ -51,7 +52,9 @@ function provideStorage() {
     AgendamentoService,
     { provide: Storage, useFactory: provideStorage },
     AgendamentoDao,
-    UsuarioService
+    UsuarioService,
+    Vibration,
+    Camera
   ]
 })
 export class AppModule {}

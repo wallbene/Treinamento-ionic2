@@ -1,9 +1,10 @@
-import {HomePage} from '../home/home';
+import { HomePage } from '../home/home';
 import { Component } from '@angular/core';
-import {FormGroup, FormBuilder,  Validators} from '@angular/forms';
+import { FormGroup, FormBuilder,  Validators } from '@angular/forms';
 import { NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import { Agendamento } from '../../domain/agendamento/agendamento';
 import { AgendamentoService } from '../../domain/agendamento/agendamento-service';
+import { Vibration, DatePicker } from 'ionic-native';
 
 @Component({
   templateUrl: 'cadastro.html'
@@ -44,15 +45,24 @@ export class CadastroPage {
     this._service
     .agenda(this.agendamento)
     .then(confirmado => {
+      
+      Vibration.vibrate(500);
+
       confirmado?
         this._alert.setSubTitle("Agendamento realizado com sucesso"):
         this._alert.setSubTitle("Falha ao realizar o agendamento, tente novamente mais tarde.");
       this._alert.present();
     })
-    .catch((err: Error) => {
-      this._alert.setSubTitle(err.message);
-      this._alert.present();
+  }
+  selecionaData(){
+    DatePicker.show({
+      date: new Date(),
+      mode: "date",
+      allowFutureDates: true,
+      allowOldDates: false
     })
+    .then(data => this.agendamento.data = data.toISOString())
+
   }
 
   get nome(){

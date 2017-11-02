@@ -14,8 +14,8 @@
         <ion-avatar item-left *ngIf="url">
           <img [src]="url">
         </ion-avatar>
-        {{usuarioLogado.nome}}
-        <button ion-button outline item-right>
+        {{ usuarioLogado.nome }}
+        <button ion-button outline (click)="tiraFoto()" item-right>
           <ion-icon ios="ios-camera" md="md-camera"></ion-icon>
         </button>
       </ion-item>
