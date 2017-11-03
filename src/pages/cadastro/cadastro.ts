@@ -4,7 +4,8 @@ import { FormGroup, FormBuilder,  Validators } from '@angular/forms';
 import { NavController, NavParams, AlertController, Alert } from 'ionic-angular';
 import { Agendamento } from '../../domain/agendamento/agendamento';
 import { AgendamentoService } from '../../domain/agendamento/agendamento-service';
-import { Vibration, DatePicker } from 'ionic-native';
+import { DatePicker } from '@ionic-native/date-picker';
+import { Vibration } from '@ionic-native/vibration';
 
 @Component({
   templateUrl: 'cadastro.html'
@@ -21,15 +22,18 @@ export class CadastroPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private _service: AgendamentoService,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public vibration: Vibration,
+    public datePicker: DatePicker ) {
 
     this.agendamento = new Agendamento(this.navParams.get('carro'), this.navParams.get('precoTotal'));
     
     this._alert = this.alertCtrl.create({
       title: 'Aviso',
-      buttons: [{ text: 'ok', handler: () => this.navCtrl.setRoot(HomePage) }]
+      buttons: [{ text: 'ok', handler: () => {this.navCtrl.setRoot(HomePage)}}]
     });
   }
+
 
   ngOnInit(): void {
     this.agendamentoForm = this.fb.group({
@@ -46,7 +50,7 @@ export class CadastroPage {
     .agenda(this.agendamento)
     .then(confirmado => {
       
-      Vibration.vibrate(500);
+      this.vibration.vibrate(500);
 
       confirmado?
         this._alert.setSubTitle("Agendamento realizado com sucesso"):
@@ -55,7 +59,7 @@ export class CadastroPage {
     })
   }
   selecionaData(){
-    DatePicker.show({
+    this.datePicker.show({
       date: new Date(),
       mode: "date",
       allowFutureDates: true,
